@@ -30,7 +30,9 @@ import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-
+/**
+@Author: Budau Gabriel, Elena Posea
+*/
 public class IndexFiles {
 
 	private static final String codification = "UTF-8";
