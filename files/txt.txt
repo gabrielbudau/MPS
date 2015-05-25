@@ -1,0 +1,3 @@
+- scorul
+- pt fiecare termen sa afisez IDF-ul, unic pe termenul din intrebare
+- pt fiecare match sa afisez TF-ul din document
