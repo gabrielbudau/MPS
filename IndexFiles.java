@@ -1,19 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -45,12 +30,7 @@ import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-/**
- * Index all text files under a directory.
- * <p>
- * This is a command-line application demonstrating simple Lucene indexing. Run
- * it with no command-line arguments for usage information.
- */
+
 public class IndexFiles {
 
 	private static final String codification = "UTF-8";
@@ -58,12 +38,7 @@ public class IndexFiles {
 	private IndexFiles() {
 	}
 
-	/**
-	 * Index all text files under a directory.
-	 * 
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
+
 	public static void main(String[] args) throws FileNotFoundException,
 			IOException {
 		String indexPath = args[0];
@@ -123,16 +98,8 @@ public class IndexFiles {
 				doc.add(new TextField("contents", new StringReader(
 						PDFTextParser.pdftoText(file.getAbsolutePath()))));
 				break;
-			case ".docx":
-				XWPFDocument document = new XWPFDocument(fis);
-				XHTMLOptions options = XHTMLOptions.create().URIResolver(new FileURIResolver(new File("word/media")));
-				OutputStream out = new ByteArrayOutputStream();
-				XHTMLConverter.getInstance().convert(document, out, options);
-				String converted_text = Jsoup.parse( out.toString()).text();
-				doc.add(new TextField("contents", new BufferedReader(
-						new StringReader(converted_text))));
-				break;
 			
+
 			default:
 				doc.add(new TextField("contents", new BufferedReader(
 						new InputStreamReader(fis, codification))));
