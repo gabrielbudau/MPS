@@ -44,9 +44,6 @@ public class IndexFiles {
 		String indexPath = args[0];
 		String docsPath = args[1];
 		final File docDir = new File(docsPath);
-
-		System.out.println("Creating index into directory '" + indexPath
-				+ "'...");
 		Directory dir = FSDirectory.open(new File(indexPath));
 		File stopWordsFile = new File("resources/stop.txt");
 		CharArraySet stopWordsCharArraySet = WordlistLoader.getWordSet(
@@ -98,7 +95,15 @@ public class IndexFiles {
 				doc.add(new TextField("contents", new StringReader(
 						PDFTextParser.pdftoText(file.getAbsolutePath()))));
 				break;
-			
+			case ".docx":
+				XWPFDocument document = new XWPFDocument(fis);
+				XHTMLOptions options = XHTMLOptions.create().URIResolver(new FileURIResolver(new File("word/media")));
+				OutputStream out = new ByteArrayOutputStream();
+				XHTMLConverter.getInstance().convert(document, out, options);
+				String converted_text = Jsoup.parse( out.toString()).text();
+				doc.add(new TextField("contents", new BufferedReader(
+						new StringReader(converted_text))));
+				break;
 
 			default:
 				doc.add(new TextField("contents", new BufferedReader(
